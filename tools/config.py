@@ -89,7 +89,7 @@ def normalize_config_settings():
       # be removed in the future since such installations should probably be
       # setting a specific cache location.
       logger.debug('Using home-directory for emscripten cache due to read-only root')
-      CACHE = os.path.expanduser(os.path.join('~', '.emscripten_cache'))
+      CACHE = os.path.expanduser(os.path.join(os.getcwd(), '.emscripten_cache'))
   if not PORTS:
     PORTS = os.path.join(CACHE, 'ports')
 
@@ -254,7 +254,7 @@ def find_config_file():
   # See: https://github.com/emscripten-core/emsdk/pull/367
   emsdk_root = os.path.dirname(os.path.dirname(path_from_root()))
   emsdk_embedded_config = os.path.join(emsdk_root, '.emscripten')
-  user_home_config = os.path.expanduser('~/.emscripten')
+  user_home_config = os.path.join(os.getcwd(), '.emscripten-home')
 
   if '--em-config' in sys.argv:
     i = sys.argv.index('--em-config')
